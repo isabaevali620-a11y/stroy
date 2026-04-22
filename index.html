@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>StroyMaster AI — Стройматериалы с искусственным интеллектом</title>
+    <title>StroyMaster AI — Стройматериалы с ИИ-помощником</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="light-theme">
-    <!-- Кнопка переключения темы -->
-    <button id="themeToggle" class="theme-toggle" aria-label="Тёмная тема"><i class="fas fa-moon"></i></button>
+    <button id="themeToggle" class="theme-toggle"><i class="fas fa-moon"></i></button>
 
-    <!-- HEADER -->
     <header class="header">
         <div class="container header-container">
             <div class="logo">
@@ -21,11 +19,11 @@
             </div>
             <div class="search-box-header">
                 <i class="fas fa-search"></i>
-                <input type="text" id="globalSearch" placeholder="Поиск товаров (например, 'цемент', 'перфоратор')" autocomplete="off">
+                <input type="text" id="globalSearch" placeholder="Поиск товаров...">
                 <div id="searchSuggestions" class="search-suggestions"></div>
             </div>
             <div class="header-actions">
-                <button id="favoritesBtn" class="icon-btn" aria-label="Избранное"><i class="far fa-heart"></i><span id="favCount">0</span></button>
+                <button id="favoritesBtn" class="icon-btn"><i class="far fa-heart"></i><span id="favCount">0</span></button>
                 <a href="#" id="contactLink" class="contact-link"><i class="fab fa-whatsapp"></i><span>Связаться</span></a>
                 <div class="cart-icon" id="cartIcon">
                     <i class="fas fa-shopping-cart"></i>
@@ -35,17 +33,15 @@
         </div>
     </header>
 
-    <!-- БАННЕР -->
     <section class="hero">
         <div class="container hero-content">
-            <h1>Стройка с умом <span class="ai-highlight">+AI помощник</span></h1>
-            <p>Более 50 товаров. Искусственный интеллект подскажет, что купить для ремонта, даст смету и советы</p>
+            <h1>Всё для стройки <span class="ai-highlight">+AI помощник</span></h1>
+            <p>Более 30 товаров. Искусственный интеллект подскажет, что купить для ремонта</p>
             <button class="btn-primary" id="scrollToProducts">Перейти к товарам</button>
             <button class="btn-outline" id="openChatBtn">💬 Спросить у AI</button>
         </div>
     </section>
 
-    <!-- КАТЕГОРИИ -->
     <section class="categories">
         <div class="container">
             <h2 class="section-title">Категории</h2>
@@ -53,7 +49,6 @@
         </div>
     </section>
 
-    <!-- ФИЛЬТРЫ И СОРТИРОВКА -->
     <section class="products-section" id="productsSection">
         <div class="container">
             <div class="filter-header">
@@ -65,17 +60,15 @@
                         <option value="price_asc">Цена ↑</option>
                         <option value="price_desc">Цена ↓</option>
                         <option value="name_asc">Название А-Я</option>
-                        <option value="rating_desc">По рейтингу ↓</option>
                     </select>
                 </div>
-                <div class="filter-buttons" id="filterButtons"></div>
             </div>
+            <div class="filter-buttons" id="filterButtons"></div>
             <div class="products-grid" id="productsGrid"></div>
             <div id="pagination" class="pagination"></div>
         </div>
     </section>
 
-    <!-- ФУТЕР -->
     <footer class="footer">
         <div class="container footer-content">
             <div class="footer-col">
@@ -86,7 +79,6 @@
                 <h4>Контакты</h4>
                 <p><i class="fas fa-map-marker-alt"></i> Бишкек, ул. Жибек Жолу 123</p>
                 <p><i class="fas fa-phone"></i> +996 (550) 123-456</p>
-                <p><i class="fas fa-envelope"></i> info@stroymaster.kg</p>
             </div>
             <div class="footer-col">
                 <h4>Мы в соцсетях</h4>
@@ -102,10 +94,10 @@
         </div>
     </footer>
 
-    <!-- МОДАЛКА КОРЗИНЫ -->
-    <div id="cartModal" class="cart-modal">
-        <div class="cart-modal-content">
-            <div class="cart-header">
+    <!-- Модалка корзины -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h3><i class="fas fa-shopping-cart"></i> Корзина</h3>
                 <span class="close-cart">&times;</span>
             </div>
@@ -118,15 +110,15 @@
                 <h4>Оформить заказ</h4>
                 <input type="text" id="orderName" placeholder="Ваше имя">
                 <input type="tel" id="orderPhone" placeholder="Телефон">
-                <button id="submitOrderBtn" class="btn-primary">Отправить заказ</button>
+                <button id="submitOrderBtn" class="btn-primary">Отправить</button>
             </div>
         </div>
     </div>
 
-    <!-- МОДАЛКА ИЗБРАННОГО -->
-    <div id="favoritesModal" class="cart-modal">
-        <div class="cart-modal-content">
-            <div class="cart-header">
+    <!-- Модалка избранного -->
+    <div id="favoritesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h3><i class="fas fa-heart"></i> Избранное</h3>
                 <span class="close-fav">&times;</span>
             </div>
@@ -134,10 +126,10 @@
         </div>
     </div>
 
-    <!-- МОДАЛКА ОТЗЫВОВ -->
-    <div id="reviewModal" class="cart-modal">
-        <div class="cart-modal-content review-content">
-            <div class="cart-header">
+    <!-- Модалка отзывов -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h3>Оставить отзыв</h3>
                 <span class="close-review">&times;</span>
             </div>
@@ -145,16 +137,17 @@
             <input type="text" id="reviewAuthor" placeholder="Ваше имя">
             <textarea id="reviewText" rows="3" placeholder="Ваш отзыв"></textarea>
             <div class="rating-stars" id="ratingStars">
-                <span data-rating="1">★</span><span data-rating="2">★</span><span data-rating="3">★</span><span data-rating="4">★</span><span data-rating="5">★</span>
+                <span data-rating="1">★</span><span data-rating="2">★</span>
+                <span data-rating="3">★</span><span data-rating="4">★</span>
+                <span data-rating="5">★</span>
             </div>
-            <button id="submitReviewBtn" class="btn-primary">Оставить отзыв</button>
+            <button id="submitReviewBtn" class="btn-primary">Оставить</button>
         </div>
     </div>
 
-    <!-- AI ЧАТ-БОТ -->
+    <!-- AI Чат -->
     <div id="aiChatButton" class="ai-chat-button">
         <i class="fas fa-robot"></i>
-        <span class="notification-dot"></span>
     </div>
     <div id="aiChatWindow" class="ai-chat-window">
         <div class="ai-chat-header">
@@ -162,7 +155,7 @@
             <button id="closeChatBtn">&times;</button>
         </div>
         <div class="ai-chat-messages" id="chatMessages">
-            <div class="ai-message">Привет! Я AI-помощник по стройматериалам. Спросите: "Сколько стоит цемент?", "Что лучше для стен?", "Подбери инструмент для сверления" или "Смета на ремонт комнаты".</div>
+            <div class="ai-message">Привет! Я AI-помощник. Спросите: "Сколько стоит цемент?", "Что лучше для стен?" или "Подбери инструмент".</div>
         </div>
         <div class="ai-chat-input">
             <input type="text" id="chatInput" placeholder="Задайте вопрос...">
