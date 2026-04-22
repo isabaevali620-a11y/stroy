@@ -575,4 +575,330 @@ function getAIResponse(question) {
         return "Здравствуйте! Я AI-помощник StroyMaster. Чем могу помочь? Подскажу цены, подберу материалы, рассчитаю смету.";
     }
     return "Спасибо за вопрос! Я ещё учусь, но могу сказать, что вы можете найти все строительные материалы в нашем каталоге. Уточните, пожалуйста, товар или категорию (цемент, кирпич, инструмент, сантехника, электрика, кровля, утеплитель).";
+}// ========== ТОВАРЫ (30+ штук, 9 категорий) ==========
+const products = [
+    { id:1, name:"Цемент М500 50кг", category:"Стройматериалы", price:850, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.5, reviews:[] },
+    { id:2, name:"Кирпич красный", category:"Стройматериалы", price:12, image:"https://images.unsplash.com/photo-1562577309-4932fdd64cd1?w=300&h=200&fit=crop", rating:4.2, reviews:[] },
+    { id:3, name:"Песок 50кг", category:"Стройматериалы", price:450, image:"https://images.unsplash.com/photo-1589979484251-80b6f3ef49a1?w=300&h=200&fit=crop", rating:4.0, reviews:[] },
+    { id:4, name:"Щебень 50кг", category:"Стройматериалы", price:600, image:"https://images.unsplash.com/photo-1542407334-7c5b2176d1ec?w=300&h=200&fit=crop", rating:4.3, reviews:[] },
+    { id:5, name:"Блок газосиликатный", category:"Стройматериалы", price:180, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.4, reviews:[] },
+    { id:6, name:"Доска обрезная", category:"Пиломатериалы", price:850, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.6, reviews:[] },
+    { id:7, name:"Брус 100x100", category:"Пиломатериалы", price:1200, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.7, reviews:[] },
+    { id:8, name:"Фанера 10мм", category:"Пиломатериалы", price:950, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.3, reviews:[] },
+    { id:9, name:"Профнастил С-8", category:"Кровля", price:1250, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.5, reviews:[] },
+    { id:10, name:"Металлочерепица", category:"Кровля", price:1850, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.8, reviews:[] },
+    { id:11, name:"Рубероид", category:"Кровля", price:450, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.0, reviews:[] },
+    { id:12, name:"Минвата Rockwool", category:"Утеплитель", price:2100, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.9, reviews:[] },
+    { id:13, name:"Пеноплекс 50мм", category:"Утеплитель", price:890, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.4, reviews:[] },
+    { id:14, name:"Саморезы (1000шт)", category:"Крепеж", price:450, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.2, reviews:[] },
+    { id:15, name:"Анкер-клин", category:"Крепеж", price:180, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.3, reviews:[] },
+    { id:16, name:"Гвозди 100мм", category:"Крепеж", price:120, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.0, reviews:[] },
+    { id:17, name:"Штукатурка 25кг", category:"Смеси", price:350, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.1, reviews:[] },
+    { id:18, name:"Клей для плитки", category:"Смеси", price:420, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.5, reviews:[] },
+    { id:19, name:"Наливной пол", category:"Смеси", price:550, image:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=300&h=200&fit=crop", rating:4.6, reviews:[] },
+    { id:20, name:"Перфоратор Makita", category:"Инструменты", price:12500, image:"https://images.unsplash.com/photo-1572981779307-38b6babb4aa6?w=300&h=200&fit=crop", rating:4.9, reviews:[] },
+    { id:21, name:"Дрель Bosch", category:"Инструменты", price:8900, image:"https://images.unsplash.com/photo-1504148455328-c376907d081c?w=300&h=200&fit=crop", rating:4.8, reviews:[] },
+    { id:22, name:"Молоток", category:"Инструменты", price:450, image:"https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?w=300&h=200&fit=crop", rating:4.3, reviews:[] },
+    { id:23, name:"Отвертки набор", category:"Инструменты", price:350, image:"https://images.unsplash.com/photo-1581145492800-af6bc8f4cc0c?w=300&h=200&fit=crop", rating:4.5, reviews:[] },
+    { id:24, name:"Уровень 80см", category:"Инструменты", price:550, image:"https://images.unsplash.com/photo-1581092336086-1c3d6b5bc4f9?w=300&h=200&fit=crop", rating:4.4, reviews:[] },
+    { id:25, name:"Рулетка 5м", category:"Инструменты", price:250, image:"https://images.unsplash.com/photo-1581092336086-1c3d6b5bc4f9?w=300&h=200&fit=crop", rating:4.2, reviews:[] },
+    { id:26, name:"Труба ПВХ 50мм", category:"Сантехника", price:250, image:"https://images.unsplash.com/photo-1581092335871-4c8b6d8f3ec6?w=300&h=200&fit=crop", rating:4.3, reviews:[] },
+    { id:27, name:"Смеситель", category:"Сантехника", price:2350, image:"https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=300&h=200&fit=crop", rating:4.7, reviews:[] },
+    { id:28, name:"Гибкая подводка", category:"Сантехника", price:180, image:"https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=300&h=200&fit=crop", rating:4.1, reviews:[] },
+    { id:29, name:"Лампочки LED", category:"Электрика", price:180, image:"https://images.unsplash.com/photo-1565814636199-ae8133055c1c?w=300&h=200&fit=crop", rating:4.6, reviews:[] },
+    { id:30, name:"Розетка Legrand", category:"Электрика", price:350, image:"https://images.unsplash.com/photo-1563089145-599f3b6c577b?w=300&h=200&fit=crop", rating:4.8, reviews:[] },
+    { id:31, name:"Выключатель", category:"Электрика", price:120, image:"https://images.unsplash.com/photo-1563089145-599f3b6c577b?w=300&h=200&fit=crop", rating:4.4, reviews:[] },
+    { id:32, name:"Кабель ВВГ", category:"Электрика", price:2850, image:"https://images.unsplash.com/photo-1563089145-599f3b6c577b?w=300&h=200&fit=crop", rating:4.7, reviews:[] }
+];
+
+// ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+let currentFilter = "all";
+let currentSearch = "";
+let currentSort = "default";
+let currentPage = 1;
+const itemsPerPage = 12;
+let selectedRating = 0;
+let currentProductForReview = null;
+
+// ========== DOM ЭЛЕМЕНТЫ ==========
+const productsGrid = document.getElementById("productsGrid");
+const filterButtonsContainer = document.getElementById("filterButtons");
+const categoriesGrid = document.getElementById("categoriesGrid");
+const globalSearch = document.getElementById("globalSearch");
+const searchSuggestions = document.getElementById("searchSuggestions");
+const cartIcon = document.getElementById("cartIcon");
+const cartModal = document.getElementById("cartModal");
+const closeCart = document.querySelector(".close-cart");
+const cartItemsList = document.getElementById("cartItemsList");
+const cartTotalPriceSpan = document.getElementById("cartTotalPrice");
+const cartCountSpan = document.getElementById("cartCount");
+const submitOrderBtn = document.getElementById("submitOrderBtn");
+const favoritesBtn = document.getElementById("favoritesBtn");
+const favCountSpan = document.getElementById("favCount");
+const favoritesModal = document.getElementById("favoritesModal");
+const closeFav = document.querySelector(".close-fav");
+const favoritesList = document.getElementById("favoritesList");
+const sortSelect = document.getElementById("sortSelect");
+const themeToggle = document.getElementById("themeToggle");
+const aiChatButton = document.getElementById("aiChatButton");
+const aiChatWindow = document.getElementById("aiChatWindow");
+const closeChatBtn = document.getElementById("closeChatBtn");
+const chatInput = document.getElementById("chatInput");
+const sendChatBtn = document.getElementById("sendChatBtn");
+const chatMessages = document.getElementById("chatMessages");
+const openChatBtn = document.getElementById("openChatBtn");
+const reviewModal = document.getElementById("reviewModal");
+const closeReview = document.querySelector(".close-review");
+const submitReviewBtn = document.getElementById("submitReviewBtn");
+const reviewProductId = document.getElementById("reviewProductId");
+const reviewAuthor = document.getElementById("reviewAuthor");
+const reviewText = document.getElementById("reviewText");
+const ratingStars = document.querySelectorAll("#ratingStars span");
+const scrollBtn = document.getElementById("scrollToProducts");
+const contactLink = document.getElementById("contactLink");
+
+// ========== УТИЛИТЫ ==========
+function saveCart() { localStorage.setItem("cart", JSON.stringify(cart)); updateCartIcon(); }
+function saveFavorites() { localStorage.setItem("favorites", JSON.stringify(favorites)); updateFavIcon(); }
+function updateCartIcon() { const total = cart.reduce((s,i)=>s+i.quantity,0); cartCountSpan.innerText = total; }
+function updateFavIcon() { favCountSpan.innerText = favorites.length; }
+
+// ========== КАТЕГОРИИ ==========
+const categoryIcons = { "Стройматериалы":"fa-cubes","Пиломатериалы":"fa-tree","Кровля":"fa-home","Утеплитель":"fa-temperature-low","Крепеж":"fa-gripfire","Смеси":"fa-fill-drip","Инструменты":"fa-tools","Сантехника":"fa-faucet","Электрика":"fa-bolt" };
+function renderCategories() {
+    const cats = [...new Map(products.map(p=>[p.category,p.category])).keys()];
+    categoriesGrid.innerHTML = cats.map(cat => `<div class="category-card" data-category="${cat}"><i class="fas ${categoryIcons[cat]||'fa-hard-hat'}"></i><h3>${cat}</h3></div>`).join("");
+    document.querySelectorAll(".category-card").forEach(card => card.addEventListener("click",()=>{ setActiveFilter(card.dataset.category); document.getElementById("productsSection").scrollIntoView({behavior:"smooth"}); }));
 }
+function renderFilterButtons() {
+    const cats = ["all", ...new Map(products.map(p=>[p.category,p.category])).keys()];
+    filterButtonsContainer.innerHTML = cats.map(cat => `<button class="filter-btn ${currentFilter===cat?'active':''}" data-filter="${cat}">${cat==='all'?'Все':cat}</button>`).join("");
+    document.querySelectorAll(".filter-btn").forEach(btn => btn.addEventListener("click",()=>{ setActiveFilter(btn.dataset.filter); }));
+}
+function setActiveFilter(filter) { currentFilter = filter; currentPage = 1; renderFilterButtons(); renderProducts(); }
+
+// ========== СОРТИРОВКА ==========
+sortSelect.addEventListener("change", (e) => { currentSort = e.target.value; renderProducts(); });
+function getSortedProducts(arr) {
+    let sorted = [...arr];
+    if (currentSort === "price_asc") sorted.sort((a,b)=>a.price-b.price);
+    else if (currentSort === "price_desc") sorted.sort((a,b)=>b.price-a.price);
+    else if (currentSort === "name_asc") sorted.sort((a,b)=>a.name.localeCompare(b.name));
+    return sorted;
+}
+
+// ========== ОТРИСОВКА ТОВАРОВ + ПАГИНАЦИЯ ==========
+function renderProducts() {
+    let filtered = products.filter(p => (currentFilter==="all" || p.category===currentFilter) && p.name.toLowerCase().includes(currentSearch.toLowerCase()));
+    let sorted = getSortedProducts(filtered);
+    const totalPages = Math.ceil(sorted.length / itemsPerPage);
+    const start = (currentPage-1)*itemsPerPage;
+    const paginated = sorted.slice(start, start+itemsPerPage);
+    if(paginated.length===0) { productsGrid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;">Товары не найдены</div>`; document.getElementById("pagination").innerHTML = ""; return; }
+    productsGrid.innerHTML = paginated.map(p => `
+        <div class="product-card" data-id="${p.id}">
+            <img class="product-img" src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/300x200?text=Фото'">
+            <div class="product-info">
+                <div class="product-title">${p.name}</div>
+                <div class="product-category">${p.category}</div>
+                <div class="product-rating">${"★".repeat(Math.floor(p.rating))}${p.rating%1>=0.5?"½":""} (${p.reviews.length})</div>
+                <div class="product-price">${p.price} сом</div>
+                <button class="add-to-cart" data-id="${p.id}"><i class="fas fa-cart-plus"></i> В корзину</button>
+                <button class="add-to-fav" data-id="${p.id}"><i class="fas ${favorites.some(f=>f.id===p.id)?'fa-heart':'fa-heart'}"></i> ${favorites.some(f=>f.id===p.id)?'В избранном':'В избранное'}</button>
+                <button class="review-btn" data-id="${p.id}">⭐ Отзыв</button>
+            </div>
+        </div>
+    `).join("");
+    document.querySelectorAll(".add-to-cart").forEach(btn => btn.addEventListener("click",(e)=>{ addToCart(parseInt(btn.dataset.id)); }));
+    document.querySelectorAll(".add-to-fav").forEach(btn => btn.addEventListener("click",(e)=>{ toggleFavorite(parseInt(btn.dataset.id)); renderProducts(); updateFavIcon(); }));
+    document.querySelectorAll(".review-btn").forEach(btn => btn.addEventListener("click",(e)=>{ openReviewModal(parseInt(btn.dataset.id)); }));
+    renderPagination(totalPages);
+}
+function renderPagination(total) { const pagDiv = document.getElementById("pagination"); if(total<=1){ pagDiv.innerHTML=""; return; } let html = `<button ${currentPage===1?'disabled':''} data-page="${currentPage-1}">←</button>`; for(let i=1;i<=total;i++) html+=`<button class="${currentPage===i?'active-page':''}" data-page="${i}">${i}</button>`; html+=`<button ${currentPage===total?'disabled':''} data-page="${currentPage+1}">→</button>`; pagDiv.innerHTML=html; document.querySelectorAll("#pagination button").forEach(btn=>btn.addEventListener("click",()=>{ if(!btn.disabled){ currentPage=parseInt(btn.dataset.page); renderProducts(); window.scrollTo({top:document.getElementById("productsSection").offsetTop-100,behavior:"smooth"}); } })); }
+
+// ========== КОРЗИНА ==========
+function addToCart(id) { 
+    let p = products.find(p=>p.id===id); 
+    let existing = cart.find(i=>i.id===id); 
+    if(existing) existing.quantity++; 
+    else cart.push({...p, quantity:1}); 
+    saveCart(); 
+    updateCartUI(); 
+    showCartModal(); 
+}
+function updateCartUI() {
+    if(!cartItemsList) return;
+    if(cart.length===0){ cartItemsList.innerHTML="<p style='text-align:center;padding:20px;'>Корзина пуста</p>"; cartTotalPriceSpan.innerText="0"; return; }
+    let totalSum = 0;
+    cartItemsList.innerHTML = cart.map(item => {
+        let sum = item.price * item.quantity;
+        totalSum += sum;
+        return `<div class="cart-item" data-id="${item.id}">
+            <img class="cart-item-img" src="${item.image}" alt="${item.name}">
+            <div class="cart-item-details">
+                <div class="cart-item-title">${item.name}</div>
+                <div class="cart-item-price">${item.price} сом</div>
+                <div class="cart-item-quantity">
+                    <button class="decr" data-id="${item.id}">-</button>
+                    <span>${item.quantity}</span>
+                    <button class="incr" data-id="${item.id}">+</button>
+                    <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div><strong>${sum} сом</strong></div>
+        </div>`;
+    }).join("");
+    cartTotalPriceSpan.innerText = totalSum;
+    document.querySelectorAll(".decr").forEach(btn => btn.addEventListener("click",()=>{ let id=parseInt(btn.dataset.id); let idx=cart.findIndex(i=>i.id===id); if(cart[idx].quantity>1) cart[idx].quantity--; else cart.splice(idx,1); saveCart(); updateCartUI(); }));
+    document.querySelectorAll(".incr").forEach(btn => btn.addEventListener("click",()=>{ let id=parseInt(btn.dataset.id); cart.find(i=>i.id===id).quantity++; saveCart(); updateCartUI(); }));
+    document.querySelectorAll(".remove-item").forEach(btn => btn.addEventListener("click",()=>{ let id=parseInt(btn.dataset.id); cart = cart.filter(i=>i.id!==id); saveCart(); updateCartUI(); }));
+}
+function showCartModal() { updateCartUI(); cartModal.style.display="flex"; }
+function closeCartModal() { cartModal.style.display="none"; }
+cartIcon.addEventListener("click", showCartModal);
+closeCart.addEventListener("click", closeCartModal);
+window.addEventListener("click", (e) => { if(e.target===cartModal) closeCartModal(); if(e.target===favoritesModal) closeFavModal(); if(e.target===reviewModal) closeReviewModal(); });
+
+// ========== ИЗБРАННОЕ ==========
+function toggleFavorite(id) { 
+    let exists = favorites.some(f=>f.id===id); 
+    if(exists) favorites = favorites.filter(f=>f.id!==id); 
+    else favorites.push(products.find(p=>p.id===id)); 
+    saveFavorites(); 
+    renderProducts(); 
+}
+function updateFavoritesList() {
+    if(!favoritesList) return;
+    if(favorites.length===0){ favoritesList.innerHTML="<p style='text-align:center;padding:20px;'>Нет избранных товаров</p>"; return; }
+    favoritesList.innerHTML = favorites.map(f => `<div class="cart-item"><img class="cart-item-img" src="${f.image}"><div><div class="cart-item-title">${f.name}</div><div>${f.price} сом</div><button class="remove-fav" data-id="${f.id}">Удалить</button></div></div>`).join("");
+    document.querySelectorAll(".remove-fav").forEach(btn => btn.addEventListener("click",()=>{ favorites = favorites.filter(f=>f.id!==parseInt(btn.dataset.id)); saveFavorites(); updateFavoritesList(); renderProducts(); }));
+}
+function showFavModal() { updateFavoritesList(); favoritesModal.style.display="flex"; }
+function closeFavModal() { favoritesModal.style.display="none"; }
+favoritesBtn.addEventListener("click", showFavModal);
+closeFav.addEventListener("click", closeFavModal);
+
+// ========== ОТЗЫВЫ ==========
+function openReviewModal(productId) {
+    currentProductForReview = productId;
+    reviewProductId.value = productId;
+    reviewAuthor.value = "";
+    reviewText.value = "";
+    selectedRating = 0;
+    updateStars();
+    reviewModal.style.display = "flex";
+}
+function closeReviewModal() { reviewModal.style.display = "none"; }
+closeReview.addEventListener("click", closeReviewModal);
+function updateStars() { ratingStars.forEach(star => { if(parseInt(star.dataset.rating) <= selectedRating) star.classList.add("active"); else star.classList.remove("active"); }); }
+ratingStars.forEach(star => star.addEventListener("click",()=>{ selectedRating = parseInt(star.dataset.rating); updateStars(); }));
+submitReviewBtn.addEventListener("click",()=>{
+    let pid = parseInt(reviewProductId.value);
+    let product = products.find(p=>p.id===pid);
+    if(!product) return;
+    let author = reviewAuthor.value.trim();
+    let text = reviewText.value.trim();
+    if(!author || !text || selectedRating===0) { alert("Заполните имя, отзыв и выберите оценку"); return; }
+    product.reviews.push({ author, text, rating: selectedRating, date: new Date().toLocaleDateString() });
+    let totalRating = product.reviews.reduce((sum,r)=>sum+r.rating,0) / product.reviews.length;
+    product.rating = Math.round(totalRating * 10) / 10;
+    closeReviewModal();
+    renderProducts();
+    alert("Спасибо за отзыв!");
+});
+
+// ========== ПОИСК С АВТОДОПОЛНЕНИЕМ ==========
+globalSearch.addEventListener("input", (e) => {
+    currentSearch = e.target.value;
+    currentPage = 1;
+    renderProducts();
+    let query = e.target.value.toLowerCase();
+    if(!query) { searchSuggestions.style.display = "none"; return; }
+    let matches = products.filter(p => p.name.toLowerCase().includes(query)).slice(0,5);
+    if(matches.length) {
+        searchSuggestions.innerHTML = matches.map(m => `<div>${m.name}</div>`).join("");
+        searchSuggestions.style.display = "block";
+        document.querySelectorAll(".search-suggestions div").forEach(div => div.addEventListener("click",()=>{ globalSearch.value = div.innerText; currentSearch = div.innerText; renderProducts(); searchSuggestions.style.display = "none"; }));
+    } else searchSuggestions.style.display = "none";
+});
+document.addEventListener("click", (e) => { if(!e.target.closest(".search-box-header")) searchSuggestions.style.display = "none"; });
+
+// ========== ТЁМНАЯ ТЕМА ==========
+function loadTheme() { if(localStorage.getItem("theme")==="dark") document.body.classList.add("dark-theme"); }
+themeToggle.addEventListener("click",()=>{ document.body.classList.toggle("dark-theme"); localStorage.setItem("theme",document.body.classList.contains("dark-theme")?"dark":"light"); });
+
+// ========== AI ПОМОЩНИК (РАБОЧИЙ) ==========
+function initAI() {
+    aiChatButton.addEventListener("click",()=>{ aiChatWindow.style.display = aiChatWindow.style.display==="flex" ? "none" : "flex"; });
+    closeChatBtn.addEventListener("click",()=> aiChatWindow.style.display="none");
+    if(openChatBtn) openChatBtn.addEventListener("click",()=>{ aiChatWindow.style.display="flex"; });
+    sendChatBtn.addEventListener("click", sendAIMessage);
+    chatInput.addEventListener("keypress", (e) => { if(e.key==="Enter") sendAIMessage(); });
+}
+function sendAIMessage() {
+    let msg = chatInput.value.trim();
+    if(!msg) return;
+    addChatMessage(msg, "user");
+    chatInput.value = "";
+    setTimeout(() => {
+        let reply = getAIResponse(msg);
+        addChatMessage(reply, "ai");
+    }, 300);
+}
+function addChatMessage(text, sender) {
+    let div = document.createElement("div");
+    div.className = sender === "user" ? "user-message" : "ai-message";
+    div.innerText = text;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+function getAIResponse(question) {
+    let q = question.toLowerCase();
+    if(q.includes("цемент")) return "Цемент М500 50кг стоит 850 сом. Есть также цемент М400 — 780 сом. Хорошо подходит для фундамента.";
+    if(q.includes("кирпич")) return "Красный кирпич — 12 сом/шт. Также есть силикатный кирпич — 10 сом/шт. Какой вам нужен?";
+    if(q.includes("перфоратор")) return "Перфоратор Makita HR2470 — 12 500 сом. Отличный выбор для бетона. Можем доставить.";
+    if(q.includes("сколько стоит") || q.includes("цена")) {
+        let match = products.find(p => q.includes(p.name.toLowerCase()));
+        if(match) return `${match.name} стоит ${match.price} сом. Хотите добавить в корзину?`;
+        return "Уточните товар: цемент, кирпич, перфоратор, дрель и т.д.";
+    }
+    if(q.includes("что лучше для стен")) return "Для стен лучше всего газосиликатные блоки (180 сом/шт) или кирпич. Также нужен цементный раствор.";
+    if(q.includes("инструмент") || q.includes("инструменты")) return "Советую перфоратор Makita, дрель Bosch, набор отвёрток. Посмотрите в категории 'Инструменты'.";
+    if(q.includes("скидка") || q.includes("акция")) return "Сейчас акция: при заказе от 5000 сом — бесплатная доставка по Бишкеку!";
+    if(q.includes("доставка")) return "Доставка по Бишкеку — 300 сом, при заказе от 5000 сом — бесплатно.";
+    if(q.includes("привет") || q.includes("здравствуй")) return "Здравствуйте! Чем могу помочь? Спросите о ценах, материалах или инструментах.";
+    return "Я AI-помощник StroyMaster. Могу подсказать цены, сравнить товары, дать совет по ремонту. Что вас интересует? (например, 'цемент', 'перфоратор', 'доставка')";
+}
+
+// ========== ФОРМА ЗАКАЗА ==========
+submitOrderBtn.addEventListener("click", () => {
+    let name = document.getElementById("orderName").value.trim();
+    let phone = document.getElementById("orderPhone").value.trim();
+    if(!name || !phone) { alert("Заполните имя и телефон"); return; }
+    if(cart.length === 0) { alert("Корзина пуста"); return; }
+    alert(`✅ Спасибо, ${name}! Ваш заказ принят. Менеджер свяжется с вами по номеру ${phone}.`);
+    cart = [];
+    saveCart();
+    updateCartUI();
+    closeCartModal();
+    document.getElementById("orderName").value = "";
+    document.getElementById("orderPhone").value = "";
+});
+
+// ========== ДОПОЛНИТЕЛЬНЫЕ СОБЫТИЯ ==========
+scrollBtn.addEventListener("click", () => { document.getElementById("productsSection").scrollIntoView({ behavior: "smooth" }); });
+contactLink.addEventListener("click", (e) => { e.preventDefault(); window.open("https://wa.me/996550123456?text=Здравствуйте! Интересуют стройматериалы", "_blank"); });
+
+// ========== ИНИЦИАЛИЗАЦИЯ ==========
+function init() {
+    renderCategories();
+    renderFilterButtons();
+    renderProducts();
+    updateCartUI();
+    updateFavIcon();
+    loadTheme();
+    initAI();
+}
+init();
